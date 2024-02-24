@@ -16,9 +16,10 @@ import android.widget.Toast
 
 class BoardFragment : Fragment() {
 
-    //game board
+    //game board used for back end
     val FIR_board = FourInARow()
 
+    //current game state. playing or an end game result
     var currentState = GameConstants.PLAYING
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -77,8 +78,9 @@ class BoardFragment : Fragment() {
                 Toast.makeText(requireContext(), "Finish your game first!", duration).show()
             }
 
-        } //end reset button
+        } //end reset button listener
 
+        //set logic for all of the board buttons
         for (buttonId in buttonList)
         { //check all buttons
             //current button in check loop
@@ -107,7 +109,7 @@ class BoardFragment : Fragment() {
                         button.setBackgroundColor(Color.BLUE)
                         button.tag = "PLAYER"
 
-                        //turn selected button into an int for back-end
+                        //turn selected button into an int spaceNumber for back-end
                         val playerSpace = resources.getResourceEntryName(buttonId)
                         val playerSpaceNum = playerSpace.subSequence(5, playerSpace.length).toString()
 
@@ -123,7 +125,7 @@ class BoardFragment : Fragment() {
                             //get int of computer move (uses back end to avoid collisions
                             var compMove = FIR_board.computerMove
 
-                            //find button associated with that move
+                            //find view associated with that board location
                             var compButtonId = resources.getIdentifier(
                                     "space$compMove",
                                     "id",
@@ -131,20 +133,19 @@ class BoardFragment : Fragment() {
                             )
                             var compButton = view.findViewById<Button>(compButtonId)
 
+                            //display comp move on front end (update the view)
+                            compButton.tag = "COMP"
+                            compButton.setBackgroundColor(Color.RED)
 
                             //set comp move on back end
                             FIR_board.setMove(GameConstants.COMP, compMove)
-
-                            //display comp move on front end
-                            compButton.tag = "COMP"
-                            compButton.setBackgroundColor(Color.RED)
 
                         }//end comp move
 
                         //check for winner aka update game state again
                         currentState = FIR_board.checkForWinner()
 
-                        //log currentState for debuging
+                        //log currentState for debugging
                         Log.d("WinStateEndComp", currentState.toString())
 
                         //if current state is anything BUT playing, we want to update that now
@@ -164,11 +165,14 @@ class BoardFragment : Fragment() {
                                     3 -> endString = "(B) "+playerNametxt+" LOST!!!"
                             }
 
-                            //val title = view.findViewById<TextView>(R.id.playerNameView)
                             playerNameView.text = endString
                         }//end win display
                     }//end player's move
-                    FIR_board.printBoard()
+
+                    //used for debugging, prints to LogCat
+                    //FIR_board.printBoard()
+
+
                 }//end listener
             } //end if playing
         }//end check buttons
