@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ConnectFourApp</string>
+    <string name="prompt">Enter Your Name</string>
+    <string name="startButton">Begin</string>
+    <string name="title">CONNECT FOUR</string>
+    <string name="playerName">player</string>
+    <string name="actionButton">RESET</string>
+    <string name="redButton"> R </string>
+    <string name="blankButton">   </string>
+    <string name="blueButton"> B </string>
+
+    <string name="instructions">Use the drop down to select which column you\'d like to place your disc! Connect FOUR discs in a row (vertically, horizontally, or diagonally) to win!</string>
+
+
+</resources>
