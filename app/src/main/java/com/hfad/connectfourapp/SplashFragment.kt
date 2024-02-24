@@ -1,3 +1,9 @@
+/*
+    SeSe Allerheiligen
+    2/24/24
+    Connect Four App
+    Splash screen for the game. Allows user to input their name before starting
+ */
 package com.hfad.connectfourapp
 
 import android.os.Bundle

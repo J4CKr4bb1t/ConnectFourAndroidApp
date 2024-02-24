@@ -1,3 +1,10 @@
+/*
+SeSe Allerheiligen
+2/24/24
+Connect Four App
+Board fragment handles the actual gameplay and allows for reset.
+ */
+
 package com.hfad.connectfourapp
 
 import FourInARow
