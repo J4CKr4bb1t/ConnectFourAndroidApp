@@ -34,7 +34,7 @@ class BoardFragment : Fragment() {
 
         //displaying info
         val playerNameView = view.findViewById<TextView>(R.id.playerNameView)
-        val displayText = playerNametxt + "'s game"
+        val displayText = playerNametxt + "'s game- make your move!"
         playerNameView.text = displayText
         //end name display
 
@@ -162,9 +162,9 @@ class BoardFragment : Fragment() {
 
                                     1 -> endString = "Ended in a TIE!!!"
 
-                                    2 -> endString = "BLUE! "+playerNametxt+" WON!!!"
+                                    2 -> endString = "BLUE 4! "+playerNametxt+" WON!!!"
 
-                                    3 -> endString = "RED! "+playerNametxt+" LOST!!!"
+                                    3 -> endString = "RED 4! "+playerNametxt+" LOST!!!"
                             }
 
                             playerNameView.text = endString
