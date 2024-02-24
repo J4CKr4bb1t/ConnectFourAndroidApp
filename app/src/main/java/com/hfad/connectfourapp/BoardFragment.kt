@@ -56,7 +56,7 @@ class BoardFragment : Fragment() {
             if(currentState != 0) //valid restart
             {
                 //toast to say we're reseting
-                Toast.makeText(requireContext(), "Board Reset!", duration).show()
+                Toast.makeText(requireContext(), "NEW GAME!", duration).show()
 
                 //switch back to default display text
                 playerNameView.text = displayText

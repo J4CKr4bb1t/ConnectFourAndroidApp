@@ -24,9 +24,9 @@
     <TextView
         android:layout_row = "0"
         android:layout_column="0"
-        android:layout_columnSpan="5"
+        android:layout_columnSpan="6"
         android:id="@+id/playerNameView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textAlignment="center"
