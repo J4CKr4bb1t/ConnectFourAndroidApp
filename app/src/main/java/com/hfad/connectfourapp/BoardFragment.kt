@@ -86,24 +86,24 @@ class BoardFragment : Fragment() {
             //current button in check loop
             val button = view.findViewById<Button>(buttonId)
 
-            //button's state
-            val state = button.tag as? String
+            //initialize buttons as ltgray
+            button.setBackgroundColor(Color.LTGRAY)
 
-            when (state) //set all button colors according to their state (overrides default)
-            {
-                "BLANK" -> button.setBackgroundColor(Color.LTGRAY)
-                "COMP" -> button.setBackgroundColor(Color.RED)
-                "PLAYER" -> button.setBackgroundColor(Color.BLUE)
-            }
 
             if (currentState == GameConstants.PLAYING )
             {
                 //listens for player to hit the buttons
                 button.setOnClickListener{
 
+                    //make sure to update button's state when pressed
+                    val buttonSpace = resources.getResourceEntryName(buttonId)
+                    val buttonSpaceNum = buttonSpace.subSequence(5, buttonSpace.length).toString()
+                    val state = FIR_board.getSpace(buttonSpaceNum.toInt())
+
                     //if player selects blank button, we want to run through the game logic
                     //we ALSO need to check that we're still playing!
-                    if (state == "BLANK" && currentState == GameConstants.PLAYING)
+                    Log.d("ButtonState",state.toString())
+                    if (state == 0 && currentState == GameConstants.PLAYING)
                     {
                         //set the button's color and tag it as belonging to the player
                         button.setBackgroundColor(Color.BLUE)
@@ -123,15 +123,15 @@ class BoardFragment : Fragment() {
                         if (currentState == GameConstants.PLAYING)
                         {
                             //get int of computer move (uses back end to avoid collisions
-                            var compMove = FIR_board.computerMove
+                            val compMove = FIR_board.computerMove
 
                             //find view associated with that board location
-                            var compButtonId = resources.getIdentifier(
+                            val compButtonId = resources.getIdentifier(
                                     "space$compMove",
                                     "id",
                                     requireContext().packageName
                             )
-                            var compButton = view.findViewById<Button>(compButtonId)
+                            val compButton = view.findViewById<Button>(compButtonId)
 
                             //display comp move on front end (update the view)
                             compButton.tag = "COMP"
@@ -151,6 +151,8 @@ class BoardFragment : Fragment() {
                         //if current state is anything BUT playing, we want to update that now
                         if(currentState != 0)
                         {
+                            Toast.makeText(requireContext(), "GAME OVER", Toast.LENGTH_SHORT).show()
+
                             Log.d("WinStateEndButtonCheck", currentState.toString())
                             var endString = ""
 
@@ -160,19 +162,20 @@ class BoardFragment : Fragment() {
 
                                     1 -> endString = "Ended in a TIE!!!"
 
-                                    2 -> endString = "(R) "+playerNametxt+" WON!!!"
+                                    2 -> endString = "BLUE! "+playerNametxt+" WON!!!"
 
-                                    3 -> endString = "(B) "+playerNametxt+" LOST!!!"
+                                    3 -> endString = "RED! "+playerNametxt+" LOST!!!"
                             }
 
                             playerNameView.text = endString
+
+
                         }//end win display
                     }//end player's move
-
-                    //used for debugging, prints to LogCat
-                    //FIR_board.printBoard()
-
-
+                    else
+                    {
+                       if (currentState == GameConstants.PLAYING)Toast.makeText(requireContext(), "INVALID MOVE", Toast.LENGTH_SHORT).show()
+                    }
                 }//end listener
             } //end if playing
         }//end check buttons

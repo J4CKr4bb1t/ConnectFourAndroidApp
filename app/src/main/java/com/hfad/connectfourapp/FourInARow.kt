@@ -389,5 +389,9 @@ class FourInARow
             GameConstants.RED ->   print(" R ")
         }
     }
+
+    fun getSpace(location: Int): Int {
+        return board[location/6][location%6]
+    }
 }
 
